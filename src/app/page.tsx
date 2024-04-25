@@ -40,6 +40,15 @@ export default async function Home() {
               href={`/r/create`}>
               Crear Modulo
             </Link>
+
+            <Link
+              className={buttonVariants({
+                className: 'w-full mb-3',
+                variant:'link'
+              })}
+              href={`/calculator`}>
+              Metodos
+            </Link>
           </dl>
         </div>
       </div>
