@@ -76,7 +76,7 @@ const Post: FC<PostProps> = ({
         <Link
           href={`/r/${subredditName}/post/${post.id}`}
           className='w-fit flex items-center gap-2'>
-          <MessageSquare className='h-4 w-4' /> {commentAmt} comments
+          <MessageSquare className='h-4 w-4' /> {commentAmt} Componentes
         </Link>
       </div>
     </div>
