@@ -150,7 +150,7 @@ export function LucCalculator({
               <Input
                 id="orderingCost"
                 {...register("orderingCost")}
-                type="number"
+                type="text"
                 required
                 disabled={state.showTableResults}
               />
@@ -163,7 +163,7 @@ export function LucCalculator({
               <Input
                 id="holdingCost"
                 {...register("holdingCost")}
-                type="number"
+                type="text"
                 disabled={state.showTableResults}
                 required
               />
@@ -180,7 +180,7 @@ export function LucCalculator({
                 {...register("leadTime")}
                 type="number"
                 required
-                disabled={state.showTableResults}
+                disabled={state.showTableUnits}
               />
               {errors?.leadTime && (
                 <p className="text-red-600">{errors.leadTime.message}</p>

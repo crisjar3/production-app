@@ -89,7 +89,13 @@ export function ContainerInventoryCalculator({
       variant: "default",
     });
 
-    return containerResult;
+    if (containerResult < 1) {
+      return 1;
+    }
+
+    return Math.round(containerResult);
+
+    // return containerResult;
   };
 
   return (
@@ -111,7 +117,7 @@ export function ContainerInventoryCalculator({
               <Input
                 id="demandRate"
                 {...register("demandRate")}
-                type="number"
+                type="text"
                 required
               />
               {errors?.demandRate && (

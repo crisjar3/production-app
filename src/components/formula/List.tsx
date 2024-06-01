@@ -9,7 +9,7 @@ import {
 } from "./Eoq";
 import { EOQCalculator } from "./Forms/EoqCalculator";
 import { CorrectiveMaintenanceCalculator } from "./Forms/CorrectiveMaintenanceCalculator";
-import { LucCalculator } from "./Forms/LucCalculator";
+import { LucCalculator } from "./Forms/LtcCalculator";
 import { ContainerInventoryCalculator } from "./Forms/ConatinerInventaryCalculator";
 import SearchBar from "./SearchBarCalculator";
 import { cx } from "class-variance-authority";
@@ -34,7 +34,6 @@ export const FormulaItems: React.FC<Props> = ({ items }) => {
 
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
 
-  // Función para resaltar el elemento por ID durante 5 segundos
   const highlightElementById = (id: string) => {
     setHighlightedId(() => id);
     setTimeout(() => {

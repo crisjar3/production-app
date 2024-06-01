@@ -93,8 +93,8 @@ export function CorrectiveMaintenanceCalculator({
     const CMC = numberOfFailures * (maintenanceCost + failureCost);
 
     toast({
-      title: "Calculation Result",
-      description: `Data is ${JSON.stringify(data)} and result is ${CMC}`,
+      title: "Resultado Calculado",
+      description: `el Resultado ${CMC}`,
     });
     
     return CMC;

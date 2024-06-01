@@ -27,15 +27,29 @@ const style = {
 }
 
 const EditorOutput: FC<EditorOutputProps> = ({ content }) => {
-  return (
-    // @ts-expect-error
-    <Output
-      style={style}
-      className='text-sm'
-      renderers={renderers}
-      data={content}
-    />
-  )
+  // Envolver el renderizado dentro de un bloque try-catch
+
+  // return(
+  //   <>Ver Contenido</>
+  // )
+  try {
+    return (
+      // @ts-expect-error
+      <Output
+        style={style}
+        className='text-sm'
+        renderers={renderers}
+        data={content}
+      />
+    )
+  } catch (error) {
+    console.error('Error rendering content:', error)
+    return (
+      <div className='text-red-500'>
+        Error rendering content.
+      </div>
+    )
+  }
 }
 
 export default EditorOutput

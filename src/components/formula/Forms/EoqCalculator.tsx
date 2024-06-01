@@ -54,7 +54,7 @@ export function EOQCalculator({
 
     toast({
       title: "Resultado correcto",
-      description: "data is" + JSON.stringify(data) + "and result is" + EOQ,
+      description: "El resultado es " + EOQ,
     });
     return EOQ;
   };
@@ -90,7 +90,7 @@ export function EOQCalculator({
               <Input
                 id="holdingCost"
                 {...register("holdingCost")}
-                type="number"
+                type="text"
               />
               {errors?.holdingCost && (
                 <p className="text-red-600">{errors.holdingCost.message}</p>
