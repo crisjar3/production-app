@@ -209,7 +209,7 @@ export function LtcCalculator({
             </div>
             <div>
               <Label htmlFor="leadTime">
-                Tiempo de Entrega (LT) en Semanas
+                Cantidad de semanas
               </Label>
               <Input
                 id="leadTime"

@@ -125,7 +125,8 @@ export function calculateLuC(data: LtcFormData, units: number[]): ResultLUC[] {
 
   units.forEach((unit) => {
     const periodCounter = calculateAccoumulative(Counter + 1);
-    AccoumulateUnits = AccoumulateUnits + unit;
+    AccoumulateUnits =
+      parseFloat(AccoumulateUnits.toString()) + parseFloat(unit.toString());
     const orderingCost = data.orderingCost ?? 0;
     const holdingCost = data.holdingCost * periodCounter * Counter;
     let totalCost = CostTotalBefore + holdingCost;

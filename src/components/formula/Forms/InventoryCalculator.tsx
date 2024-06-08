@@ -16,35 +16,63 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 
-const InventoryValidator = z.object({
-  demand: z.preprocess(
-    (a) => parseFloat(z.string().parse(a)),
-    z.number().positive("Debe ser un numero Positivo")
-  ),
-  reviewCycle: z.preprocess(
-    (a) => parseInt(z.string().parse(a)),
-    z.number().positive("Debe ser un numero entero positivo")
-  ),
-  safetyStock: z.preprocess(
-    (a) => parseInt(z.string().parse(a)),
-    z.number().positive("Debe ser un numero entero positivo")
-  ),
-  weeks: z.preprocess(
-    (a) => parseInt(z.string().parse(a)),
-    z.number().positive("Debe ser un numero entero positivo")
-  ),
-  orderQuantity: z.preprocess(
-    (a) =>
-      a === undefined || a === null || a.toString().trim() === ""
-        ? 0
-        : parseFloat(z.string().parse(a)),
-    z
-      .number()
-      .nonnegative("Debe ser un numero entero no negativo")
-      .optional()
-      .default(0)
-  ),
-});
+const InventoryValidator = z
+  .object({
+    demand: z.preprocess(
+      (a) => parseFloat(z.string().parse(a)),
+      z.number().positive("Debe ser un numero Positivo")
+    ),
+    reviewCycle: z.preprocess(
+      (a) =>
+        a === undefined || a === null || a.toString().trim() === ""
+          ? 0
+          : parseFloat(z.string().parse(a)),
+      z
+        .number()
+        .nonnegative("Debe ser un numero entero no negativo")
+        .optional()
+        .default(0)
+    ),
+    safetyStock: z.preprocess(
+      (a) => parseInt(z.string().parse(a)),
+      z.number().positive("Debe ser un numero entero positivo")
+    ),
+    weeks: z.preprocess(
+      (a) => parseInt(z.string().parse(a)),
+      z.number().positive("Debe ser un numero entero positivo")
+    ),
+    orderQuantity: z.preprocess(
+      (a) =>
+        a === undefined || a === null || a.toString().trim() === ""
+          ? 0
+          : parseFloat(z.string().parse(a)),
+      z
+        .number()
+        .nonnegative("Debe ser un numero entero no negativo")
+        .optional()
+        .default(0)
+    ),
+  })
+  .refine(
+    (data) => {
+      const { orderQuantity, reviewCycle } = data;
+
+      if (orderQuantity > 0 && reviewCycle > 0) {
+        return false;
+      }
+
+      if (orderQuantity === 0 && reviewCycle === 0) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message:
+        "Debe proporcionar al menos uno de los siguientes datos: Cantidad de ordenes o Ciclo de revision ",
+      path: ["numberOfFailures"],
+    }
+  );
 
 type InventoryFormData = z.infer<typeof InventoryValidator>;
 
@@ -85,11 +113,14 @@ export function InventoryCalculator({
 
   const calculateInventory = (data: InventoryFormData): InventoryResults => {
     const { demand, reviewCycle, safetyStock, weeks, orderQuantity } = data;
-    const averageInventory = calculateAverageInventory({
-      demand,
-      reviewCycle,
-      safetyStock,
-    });
+    const averageInventory =
+      orderQuantity > 0
+        ? calculateAverageInventoryByQuantity(orderQuantity, safetyStock)
+        : calculateAverageInventory({
+            demand,
+            reviewCycle,
+            safetyStock,
+          });
 
     return {
       averageInventory,
@@ -98,10 +129,7 @@ export function InventoryCalculator({
         weeks,
         averageInventory
       ),
-      averageInventoryByOrderQuantity:
-        orderQuantity > 0
-          ? calculateAverageInventoryByQuantity(orderQuantity, safetyStock)
-          : null,
+      averageInventoryByOrderQuantity:null
     };
   };
 
