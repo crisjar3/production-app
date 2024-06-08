@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import {
   Command,
   CommandEmpty,
@@ -8,7 +8,6 @@ import {
   CommandList,
 } from "@/components/ui/Command";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
-import { Users } from "lucide-react";
 
 interface FormulaItem {
   title: string;
@@ -30,7 +29,12 @@ const SearchBar: FC<SearchBarProps> = ({ data, highlightElementById }) => {
   });
 
   const filteredResults = data.filter((item) =>
-    item.title.toLowerCase().includes(input.toLowerCase())
+    Object.values(item).some((value: any) =>
+      value
+        .toString()
+        .toLowerCase()
+        .includes(input.trim() === "" ? "" : input.toLowerCase())
+    )
   );
 
   const handleSelect = (Id: string) => {

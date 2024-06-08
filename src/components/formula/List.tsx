@@ -4,15 +4,17 @@ import React, { useState } from "react";
 import {
   EoqFormula,
   CorrectiveMaintenanceFormula,
-  LucFormula,
+  LtcFormula,
   ConatinerInventaryFormula,
+  InventoryFormula,
 } from "./Eoq";
 import { EOQCalculator } from "./Forms/EoqCalculator";
 import { CorrectiveMaintenanceCalculator } from "./Forms/CorrectiveMaintenanceCalculator";
-import { LucCalculator } from "./Forms/LtcCalculator";
+import { LtcCalculator } from "./Forms/LtcCalculator";
 import { ContainerInventoryCalculator } from "./Forms/ConatinerInventaryCalculator";
 import SearchBar from "./SearchBarCalculator";
 import { cx } from "class-variance-authority";
+import { InventoryCalculator } from "./Forms/InventoryCalculator";
 
 interface FormulaItem {
   title: string;
@@ -38,7 +40,7 @@ export const FormulaItems: React.FC<Props> = ({ items }) => {
     setHighlightedId(() => id);
     setTimeout(() => {
       setHighlightedId(()=> "");
-    }, 2500);
+    }, 1500);
   };
 
   const handleClick = (id: string) => {
@@ -119,11 +121,11 @@ const data: FormulaItem[] = [
     FormulaDialog: CorrectiveMaintenanceCalculator,
   },
   {
-    title: "LTC",
-    description: "Métodos para encontrar la cantidad óptima de pedidos",
-    formulaComponent: LucFormula,
+    title: "LTC Y LUC",
+    description: "Métodos para encontrar la cantidad óptima de pedidos por LTC Y LUC",
+    formulaComponent: LtcFormula,
     Id: "LTC",
-    FormulaDialog: LucCalculator,
+    FormulaDialog: LtcCalculator,
   },
   {
     title: "Cantidad de recipientes y inventario acumulado",
@@ -132,5 +134,13 @@ const data: FormulaItem[] = [
     formulaComponent: ConatinerInventaryFormula,
     Id: "ContainerInventary",
     FormulaDialog: ContainerInventoryCalculator,
+  },
+  {
+    title: "Administracion de Inventario",
+    description:
+      "Calculos Relacionado a Inventario con un modelo de periodo fijo.",
+    formulaComponent: InventoryFormula,
+    Id: "Inventary",
+    FormulaDialog: InventoryCalculator,
   },
 ];

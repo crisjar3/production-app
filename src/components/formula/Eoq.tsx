@@ -23,7 +23,7 @@ export const CorrectiveMaintenanceFormula = () => {
   );
 };
 
-export const LucFormula = () => {
+export const LtcFormula = () => {
   const LucFormula = String.raw`\text{Primera Iteracion} = \text{S} \cdot \text{K}`;
   return (
     <div>
@@ -32,6 +32,33 @@ export const LucFormula = () => {
     </div>
   );
 };
+
+export const InventoryFormula = () => {
+  const formula1 = String.raw`\text{Valor promedio del inventario} = \frac{D(T)}{2} + \text{SS}`;
+  const formula3 = String.raw`\text{Rotación de inventario} = \frac{D}{\text{Inventario promedio}}`;
+  const formula5 = String.raw`\text{Valor promedio del inventario} = \frac{Q}{2} + \text{SS}`;
+  
+
+  return (
+    <div>
+      <h2 className="text-xl font-semibold mb-2">Formulas</h2>
+      <div className="grid grid-cols-1 gap-4">
+        <div className="">
+          <BlockMath math={formula1} />
+        </div>
+        <div className="">
+          <BlockMath math={formula3} />
+        </div>
+        <div className="">
+          <BlockMath math={formula5} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+
 
 export const ConatinerInventaryFormula = () => {
   const NFormula = String.raw`N = \frac{D \cdot T}{60 \cdot C}`;

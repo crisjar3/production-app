@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const LucValidator = z.object({
+export const LtcValidator = z.object({
   orderingCost: z
     .preprocess(
       (val) => parseFloat(z.string().parse(val)),
@@ -19,7 +19,7 @@ export const LucValidator = z.object({
   ),
 });
 
-export type LucFormData = z.infer<typeof LucValidator>;
+export type LtcFormData = z.infer<typeof LtcValidator>;
 
 export function generateNumberObject(n: number): { [key: string]: number } {
   return Array.from({ length: n }, (_, i) => (i + 1).toString()).reduce(
@@ -41,12 +41,21 @@ export enum ButtonState {
   Reset = "Resetear",
 }
 
-export const headerResults = [
+export const headerResultsLTC = [
   "Periodo",
   "Unidades",
   "Periodos Mantenidos",
   "Costo de Mantenimiento",
   "Costo de Mantenimiento Acumulado",
+];
+
+export const headerResultsLUC = [
+  "Periodo",
+  "Unidades",
+  "S",
+  "K",
+  "Costo Total",
+  "Costo Total por unidades",
 ];
 
 export interface ResultLTC {
@@ -57,7 +66,7 @@ export interface ResultLTC {
   cumulativeHoldingCost: number;
 }
 
-export function calculateLTC(data: LucFormData, units: number[]): ResultLTC[] {
+export function calculateLTC(data: LtcFormData, units: number[]): ResultLTC[] {
   const results: ResultLTC[] = [];
   let periodCounter = 0;
   let Counter = 0;
@@ -90,11 +99,62 @@ export function calculateLTC(data: LucFormData, units: number[]): ResultLTC[] {
     results.push(period);
 
     periodCounter++;
-    Counter++
+    Counter++;
     if (cumulativeHoldingCost > (data.orderingCost ?? 0)) {
       periodCounter = 0;
     }
   });
 
   return results;
+}
+
+export interface ResultLUC {
+  period: number;
+  units: number;
+  orderingCost: number;
+  holdingCost: number;
+  totalCost: number;
+  totalUnitCost: number;
+}
+
+export function calculateLuC(data: LtcFormData, units: number[]): ResultLUC[] {
+  const results: ResultLUC[] = [];
+  let Counter = 0;
+  let AccoumulateUnits = 0;
+  let CostTotalBefore = 0;
+
+  units.forEach((unit) => {
+    const periodCounter = calculateAccoumulative(Counter + 1);
+    AccoumulateUnits = AccoumulateUnits + unit;
+    const orderingCost = data.orderingCost ?? 0;
+    const holdingCost = data.holdingCost * periodCounter * Counter;
+    let totalCost = CostTotalBefore + holdingCost;
+
+    if (Counter === 0) {
+      totalCost = orderingCost + holdingCost;
+    }
+    const period: ResultLUC = {
+      period: periodCounter,
+      units: AccoumulateUnits,
+      orderingCost: parseFloat(orderingCost.toFixed(3)),
+      holdingCost: parseFloat(holdingCost.toFixed(3)),
+      totalCost: parseFloat(totalCost.toFixed(3)),
+      totalUnitCost: parseFloat((totalCost / AccoumulateUnits).toFixed(3)),
+    };
+
+    results.push(period);
+
+    Counter++;
+    CostTotalBefore = totalCost;
+  });
+
+  return results;
+}
+
+//Costo de ordenar (S) debe ser un número positivo
+// Costo de mantenimiento (K) debe ser un número positivo
+
+function calculateAccoumulative(n: number): number {
+  const sum = (n * (n + 1)) / 2;
+  return sum;
 }

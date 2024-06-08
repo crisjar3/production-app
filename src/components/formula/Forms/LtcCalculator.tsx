@@ -21,14 +21,17 @@ import {
 } from "@/components/Generics/EditableTable";
 import {
   ButtonState,
-  LucFormData,
-  LucValidator,
+  LtcFormData,
+  LtcValidator,
   ResultLTC,
+  ResultLUC,
   calculateLTC,
+  calculateLuC as calculateLUC,
   generateHeaders,
   generateNumberObject,
-  headerResults,
-} from "@/lib/utils/LUC/utils";
+  headerResultsLTC,
+  headerResultsLUC,
+} from "@/lib/utils/LTC/utils";
 import DataTable from "@/components/Generics/DataTable";
 
 interface State {
@@ -36,10 +39,21 @@ interface State {
   showTableResults: boolean;
   headerTableUnits: string[];
   buttomValue: ButtonState;
-  results: ResultLTC[];
+  results: {
+    resultLtc: ResultLTC[];
+    resultLuc: ResultLUC[];
+  };
 }
 
-export function LucCalculator({
+const inputData: LtcFormData = {
+  holdingCost: 0.01,
+  leadTime: 2,
+  orderingCost: 2.05,
+};
+
+const units = [15, 16, 2, 24, 16, 17, 21, 3, 6, 2];
+
+export function LtcCalculator({
   className,
   ...props
 }: React.HTMLAttributes<HTMLFormElement>) {
@@ -47,8 +61,8 @@ export function LucCalculator({
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<LucFormData>({
-    resolver: zodResolver(LucValidator),
+  } = useForm<LtcFormData>({
+    resolver: zodResolver(LtcValidator),
   });
 
   const { toast } = useToast();
@@ -60,7 +74,10 @@ export function LucCalculator({
     showTableResults: false,
     headerTableUnits: [""],
     buttomValue: ButtonState.InsertValues,
-    results: [],
+    results: {
+      resultLtc: [],
+      resultLuc: [],
+    },
   });
 
   const showUnitTable = (leadTime: number) => {
@@ -77,7 +94,7 @@ export function LucCalculator({
     }));
   };
 
-  const showResultTable = (data: LucFormData) => {
+  const showResultTable = (data: LtcFormData) => {
     if (!areAllRowsGreaterThanZero()) {
       toast({
         title: "Error",
@@ -87,14 +104,30 @@ export function LucCalculator({
       return;
     }
 
+    // setState((prevState) => ({
+    //   ...prevState,
+    //   showTableResults: true,
+    //   buttomValue: ButtonState.Reset,
+    //   results: {
+    //     resultLtc: calculateLTC(inputData, units),
+    //     resultLuc: calculateLUC(inputData, units),
+    //   },
+    // }));
+
     setState((prevState) => ({
       ...prevState,
       showTableResults: true,
       buttomValue: ButtonState.Reset,
-      results: calculateLTC(
-        data,
-        Object.values(rows[0]).map((row) => row)
-      ),
+      results: {
+        resultLuc: calculateLUC(
+          data,
+          Object.values(rows[0]).map((row) => row)
+        ),
+        resultLtc: calculateLTC(
+          data,
+          Object.values(rows[0]).map((row) => row)
+        ),
+      },
     }));
   };
 
@@ -104,11 +137,14 @@ export function LucCalculator({
       showTableResults: false,
       headerTableUnits: [""],
       buttomValue: ButtonState.InsertValues,
-      results: [],
+      results: {
+        resultLtc: [],
+        resultLuc: [],
+      },
     });
   };
 
-  const handleSteps = (data: LucFormData) => {
+  const handleSteps = (data: LtcFormData) => {
     const { orderingCost, holdingCost, leadTime } = data;
 
     if (!orderingCost || !holdingCost || !leadTime) {
@@ -141,7 +177,7 @@ export function LucCalculator({
     >
       <Card>
         <CardHeader>
-          <CardTitle>Calculadora de LUC para Producción</CardTitle>
+          <CardTitle>Calculadora de LUC Y LTC para Producción</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
@@ -200,10 +236,19 @@ export function LucCalculator({
 
             {state.showTableResults && (
               <DataTable
-                title="Resultado"
+                title="Resultado LTC"
                 subtitle="Resultado"
-                headers={headerResults}
-                rows={state.results}
+                headers={headerResultsLTC}
+                rows={state.results.resultLtc}
+              />
+            )}
+
+            {state.showTableResults && (
+              <DataTable
+                title="Resultado LUC"
+                subtitle="Resultado LUC"
+                headers={headerResultsLUC}
+                rows={state.results.resultLuc}
               />
             )}
           </div>
