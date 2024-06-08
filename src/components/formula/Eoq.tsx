@@ -43,7 +43,7 @@ export const InventoryFormula = () => {
   const formula3 = String.raw`\frac{Q}{2} + \text{SS}`;
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-2">Formulas</h2>
+      <h3 className="text-xl font-semibold mb-2">Formulas</h3>
       <div className="grid grid-cols-1 gap-4">
         <div className="">
           <BlockMath math={TitleFormula1} />
