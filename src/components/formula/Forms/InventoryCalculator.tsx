@@ -265,7 +265,7 @@ export function calculateInventoryTurnover(
   weeks: number,
   averageInventory: number
 ): number {
-  return (demand * weeks) / averageInventory;
+  return (demand ) / averageInventory;
 }
 
 export function calculateAverageInventoryByQuantity(
