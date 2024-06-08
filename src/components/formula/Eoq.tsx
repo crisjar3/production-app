@@ -34,31 +34,33 @@ export const LtcFormula = () => {
 };
 
 export const InventoryFormula = () => {
-  const formula1 = String.raw`\text{Valor promedio del inventario} = \frac{D(T)}{2} + \text{SS}`;
-  const formula3 = String.raw`\text{Rotación de inventario} = \frac{D}{\text{Inventario promedio}}`;
-  const formula5 = String.raw`\text{Valor promedio del inventario} = \frac{Q}{2} + \text{SS}`;
-  
+  const TitleFormula1 = String.raw`\text{Valor promedio del inventario =}`;
+  const formula1 = String.raw`\frac{D(T)}{2} + \text{SS}`;
+  const TitleFormula2 = String.raw`\text{Rotación de inventario} =`;
+  const formula2 = String.raw` \frac{D}{\text{Inventario promedio}}`;
+  const TitleFormula3 = String.raw`\text{Valor promedio del inventario} =`;
 
+  const formula3 = String.raw`\frac{Q}{2} + \text{SS}`;
   return (
     <div>
       <h2 className="text-xl font-semibold mb-2">Formulas</h2>
       <div className="grid grid-cols-1 gap-4">
         <div className="">
+          <BlockMath math={TitleFormula1} />
           <BlockMath math={formula1} />
         </div>
         <div className="">
-          <BlockMath math={formula3} />
+          <BlockMath math={TitleFormula2} />
+          <BlockMath math={formula2} />
         </div>
         <div className="">
-          <BlockMath math={formula5} />
+          <BlockMath math={TitleFormula3} />
+          <BlockMath math={formula3} />
         </div>
       </div>
     </div>
   );
 };
-
-
-
 
 export const ConatinerInventaryFormula = () => {
   const NFormula = String.raw`N = \frac{D \cdot T}{60 \cdot C}`;
