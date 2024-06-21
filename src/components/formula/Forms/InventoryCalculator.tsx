@@ -1,20 +1,13 @@
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import * as z from "zod";
 
-import { Button } from "@/components/ui/Button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/Card";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
-import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import {Button} from "@/components/ui/Button";
+import {Card, CardContent, CardFooter, CardHeader, CardTitle,} from "@/components/ui/Card";
+import {Input} from "@/components/ui/Input";
+import {Label} from "@/components/ui/Label";
+import {cn} from "@/lib/utils";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {useState} from "react";
 
 const InventoryValidator = z
   .object({
@@ -99,8 +92,7 @@ export function InventoryCalculator({
   } = useForm<InventoryFormData>({
     resolver: zodResolver(InventoryValidator),
   });
-
-  const { toast } = useToast();
+  
   const [inventoryResults, setInventoryResults] = useState<InventoryState>({
     show: false,
     errors: null,

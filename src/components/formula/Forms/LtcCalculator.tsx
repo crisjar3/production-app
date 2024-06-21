@@ -1,36 +1,27 @@
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import "katex/dist/katex.min.css";
 
-import { Button } from "@/components/ui/Button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/Card";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
-import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  EditDataTable,
-  useEditableTable,
-} from "@/components/Generics/EditableTable";
+import {Button} from "@/components/ui/Button";
+import {Card, CardContent, CardFooter, CardHeader, CardTitle,} from "@/components/ui/Card";
+import {Input} from "@/components/ui/Input";
+import {Label} from "@/components/ui/Label";
+import {useToast} from "@/hooks/use-toast";
+import {cn} from "@/lib/utils";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {EditDataTable, useEditableTable,} from "@/components/Generics/EditableTable";
 import {
   ButtonState,
-  LtcFormData,
-  LtcValidator,
-  ResultLTC,
-  ResultLUC,
   calculateLTC,
   calculateLuC as calculateLUC,
   generateHeaders,
   generateNumberObject,
   headerResultsLTC,
   headerResultsLUC,
+  LtcFormData,
+  LtcValidator,
+  ResultLTC,
+  ResultLUC,
 } from "@/lib/utils/LTC/utils";
 import DataTable from "@/components/Generics/DataTable";
 

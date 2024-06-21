@@ -1,81 +1,36 @@
+```mermaid
 
-# Breadit - A Modern Fullstack Reddit Clone 
+graph TD;
+    Juegos[Juegos];
+    Coop_NoCoop[Coop. y No Coop.];
+    Estrategias[Estrategias];
+    Puras_Mixtas[Puras y Mixtas];
+    Nash_Silla[Nash y Silla];
+    Aplicaciones[Aplicaciones];
+    Economia_Biologia[Economía y Biología];
 
-Built with the Next.js App Router, TypeScript & Tailwind
+    Juegos --> Coop_NoCoop;
+    Coop_NoCoop --> Def_Coop["Coaliciones y compartir beneficios"];
+    Coop_NoCoop --> Ej_Coop["Negociación, alianzas"];
+    Coop_NoCoop --> Def_NoCoop["Actúan individualmente"];
+    Coop_NoCoop --> Ej_NoCoop["Dilema del prisionero"];
 
+    Estrategias --> Puras_Mixtas;
+    Puras_Mixtas --> Def_Puras["Acción específica"];
+    Puras_Mixtas --> Carac_Puras["Decisión determinista"];
+    Puras_Mixtas --> Def_Mixtas["Varias acciones probabilísticas"];
+    Puras_Mixtas --> Vent_Mixtas["Imprevisibilidad, Nash, Flexibilidad"];
 
-## Features
+    Nash_Silla --> Def_Nash["Ningún jugador mejora solo"];
+    Nash_Silla --> Apli_Nash["Estrategias puras y mixtas"];
+    Nash_Silla --> Def_Silla["Máxima ganancia mínima y mínima pérdida máxima"];
+    Nash_Silla --> Carac_Silla["Mejor respuesta simultánea"];
 
- - Infinite scrolling for dynamically loading posts
- - Authentication using NextAuth & Google
- - Custom feed for authenticated users
- - Advanced caching using [Upstash Redis](https://upstash.com/?utm_source=Josh2)
- - Optimistic updates for a great user experience
- - Modern data fetching using React-Query
- - A beautiful and highly functional post editor
- - Image uploads & link previews
- - Full comment functionality with nested replies
- - ... and much more
+    Aplicaciones --> Economia_Biologia;
+    Economia_Biologia --> Mercados["Análisis de mercados"];
+    Economia_Biologia --> Subastas["Diseño de subastas"];
+    Economia_Biologia --> Contratos["Negociación de contratos"];
+    Economia_Biologia --> Supervivencia["Estrategias de supervivencia"];
+    Economia_Biologia --> Cooperacion["Comportamiento cooperativo"];
 
-
-## Getting started
-
-To get started with this project, run
-
-```bash
-  git clone -b starter-code https://github.com/joschan21/breadit.git
 ```
-
-and copy these .env.example variables into a separate .env file:
-
-```bash
-DATABASE_URL=
-NEXTAUTH_SECRET=
-
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-
-UPLOADTHING_SECRET=
-UPLOADTHING_APP_ID=
-
-REDIS_URL=
-REDIS_SECRET=
-```
-
-if you'd like, you can paste this snippet for quick component creation (optional):
-```typescript
-// vscode settings -> user snippets -> typescriptreact.json
-```
-
-```json
-"Typescript React Function Component": {
-    "prefix": "fc",
-    "body": [
-      "import { FC } from 'react'",
-      "",
-      "interface ${TM_FILENAME_BASE}Props {",
-      "  $1",
-      "}",
-      "",
-      "const $TM_FILENAME_BASE: FC<${TM_FILENAME_BASE}Props> = ({$2}) => {",
-      "  return <div>$TM_FILENAME_BASE</div>",
-      "}",
-      "",
-      "export default $TM_FILENAME_BASE"
-    ],
-    "description": "Typescript React Function Component"
-  },
-  ```
-
-and that's all you need to get started!
-
-
-## Acknowledgements
-
-- [Upstash Redis](https://upstash.com/?utm_source=Josh2) for making this possible
-- [Code with Antonio](https://www.youtube.com/@codewithantonio) for thumbnail design inspiration
-- Shadcn's [Taxonomy respository](https://github.com/shadcn/taxonomy) for showcasing the post editor
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)

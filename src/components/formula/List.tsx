@@ -16,7 +16,7 @@ import SearchBar from "./SearchBarCalculator";
 import { cx } from "class-variance-authority";
 import { InventoryCalculator } from "./Forms/InventoryCalculator";
 
-interface FormulaItem {
+export interface FormulaItem {
   title: string;
   description: string;
   formulaComponent: React.FC;
@@ -86,8 +86,6 @@ export const FormulaItems: React.FC<Props> = ({ items }) => {
                 <h2 className="text-base text-gray-700">{item.description}</h2>
 
                 <item.formulaComponent />
-
-                {/* {show.state && show.Id === item.Id && <item.FormulaDialog />} */}
               </div>
 
               {show.state && show.Id === item.Id && <item.FormulaDialog />}
