@@ -7,7 +7,7 @@ type DataTableProps = {
   rows: { [key: string]: any }[];
 };
 
-const DataTable: React.FC<DataTableProps> = ({
+const ReadDataTable: React.FC<DataTableProps> = ({
   title,
   subtitle,
   headers,
@@ -52,4 +52,4 @@ const DataTable: React.FC<DataTableProps> = ({
   );
 };
 
-export default DataTable;
+export default ReadDataTable;

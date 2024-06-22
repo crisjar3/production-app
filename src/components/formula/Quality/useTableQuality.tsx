@@ -192,21 +192,21 @@
 //     });
 // }
 //
-// function scrollTo90Percent() {
-//     // // Obtener la altura total del documento
-//     // const totalHeight = document.documentElement.scrollHeight;
-//     //
-//     // // Realizar el scroll hasta la parte más baja
-//     // window.scrollTo({
-//     //     top: totalHeight,
-//     //     behavior: 'smooth' // Opcional: hace el scroll de manera suave
-//     // });
-//
-//     setTimeout(() => {
-//         // Realizar el scroll aquí
-//         window.scrollTo({
-//             top: document.documentElement.scrollHeight,
-//             behavior: 'smooth'
-//         });
-//     }, 5);
-// }
+function scrollTo90Percent() {
+    // // Obtener la altura total del documento
+    // const totalHeight = document.documentElement.scrollHeight;
+    //
+    // // Realizar el scroll hasta la parte más baja
+    // window.scrollTo({
+    //     top: totalHeight,
+    //     behavior: 'smooth' // Opcional: hace el scroll de manera suave
+    // });
+
+    setTimeout(() => {
+        // Realizar el scroll aquí
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    }, 5);
+}

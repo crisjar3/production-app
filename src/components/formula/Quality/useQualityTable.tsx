@@ -77,7 +77,6 @@ export function useQualityTable() {
         >
             {fields.map((field, index) => (
                 <DataRow key={field.id}>
-
                     <td>
                         <Controller
                             control={control}

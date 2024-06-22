@@ -23,7 +23,7 @@ import {
   ResultLTC,
   ResultLUC,
 } from "@/lib/utils/LTC/utils";
-import DataTable from "@/components/Generics/DataTable";
+import DataTable from "@/components/Generics/ReadDataTable";
 
 interface State {
   showTableUnits: boolean;

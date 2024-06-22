@@ -76,3 +76,17 @@ export const ConatinerInventaryFormula = () => {
     </div>
   );
 };
+
+export const KanbanFormula = () => {
+    const KFormula = String.raw`K = \frac{D \cdot L \cdot (1 + \infty)}{c}`;
+    const totalFormula = String.raw`Total = K1 + K2 + K3 + K4 + K5 +...Kn`;
+
+    return (
+        <div>
+            <h2>Fórmulas</h2>
+            <h3>Fórmula para K:</h3>
+            <BlockMath math={KFormula} />
+            <BlockMath math={totalFormula} />
+        </div>
+    );
+};
