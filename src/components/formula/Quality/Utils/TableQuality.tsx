@@ -4,6 +4,7 @@ type DataTableProps = {
     title: ReactNode;
     subtitle?: ReactNode;
     headers: string[];
+    children: ReactElement[];
 };
 
 type DataRowProps = {
