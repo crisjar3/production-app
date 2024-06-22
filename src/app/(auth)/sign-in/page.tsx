@@ -27,4 +27,4 @@ const page: FC<pageProps> = ({}) => {
     )
 }
 
-export default page
+// export default page
