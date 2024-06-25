@@ -195,7 +195,7 @@ export function CorrectiveMaintenanceCalculator({
               <Input
                 id="costPerHour"
                 {...register("costPerHour")}
-                type="text"
+                type="number" step="0.01"
               />
               {errors?.costPerHour && (
                 <p className="text-red-600">{errors.costPerHour.message}</p>
@@ -206,7 +206,7 @@ export function CorrectiveMaintenanceCalculator({
               <Input
                 id="sparePartsCost"
                 {...register("sparePartsCost")}
-                type="text"
+                type="number" step="0.01"
               />
               {errors?.sparePartsCost && (
                 <p className="text-red-600">{errors.sparePartsCost.message}</p>
@@ -219,7 +219,7 @@ export function CorrectiveMaintenanceCalculator({
               <Input
                 id="operationalTaskCost"
                 {...register("operationalTaskCost")}
-                type="Text"
+                type="number" step="0.01"
               />
               {errors?.operationalTaskCost && (
                 <p className="text-red-600">
@@ -232,7 +232,7 @@ export function CorrectiveMaintenanceCalculator({
               <Input
                 id="logisticDelay"
                 {...register("logisticDelay")}
-                type="text"
+                type="number" step="0.01"
               />
               {errors?.logisticDelay && (
                 <p className="text-red-600">{errors.logisticDelay.message}</p>
@@ -245,7 +245,7 @@ export function CorrectiveMaintenanceCalculator({
               <Input
                 id="costPerHourOfDowntime"
                 {...register("costPerHourOfDowntime")}
-                type="text"
+                type="number" step="0.01"
               />
               {errors?.costPerHourOfDowntime && (
                 <p className="text-red-600">
@@ -271,7 +271,7 @@ export function CorrectiveMaintenanceCalculator({
 
             <div>
               <Label htmlFor="MTBF">MBTF</Label>
-              <Input id="MTBF" {...register("MTBF")} type="text" />
+              <Input id="MTBF" {...register("MTBF")} type="number" step="0.01" />
               {errors?.MTBF && (
                 <p className="text-red-600">{errors.MTBF.message}</p>
               )}

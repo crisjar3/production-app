@@ -1,14 +1,20 @@
 import * as React from "react";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import {Button} from "@/components/ui/Button";
-import {Card, CardContent, CardFooter, CardHeader, CardTitle,} from "@/components/ui/Card";
-import {Input} from "@/components/ui/Input";
-import {Label} from "@/components/ui/Label";
-import {useToast} from "@/hooks/use-toast";
-import {cn} from "@/lib/utils";
-import {zodResolver} from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/Button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const EOQValidator = z.object({
   demand: z.preprocess(
@@ -75,8 +81,15 @@ export function EOQCalculator({
         <CardContent>
           <div className="grid gap-4">
             <div>
-              <Label htmlFor="demand">Demanda</Label>
-              <Input id="demand" {...register("demand")} type="number" />
+              <Label htmlFor="demand">Demanda Test</Label>
+              <Input
+                id="demand"
+                step={1}
+                pattern="^[1-9]\d*$"
+                min={0}
+                {...register("demand")}
+                type="number"
+              />
               {errors?.demand && (
                 <p className="text-red-600">{errors.demand.message}</p>
               )}
@@ -93,7 +106,8 @@ export function EOQCalculator({
               <Input
                 id="holdingCost"
                 {...register("holdingCost")}
-                type="text"
+                type="number"
+                step="0.01"
               />
               {errors?.holdingCost && (
                 <p className="text-red-600">{errors.holdingCost.message}</p>

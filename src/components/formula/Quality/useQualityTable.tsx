@@ -155,7 +155,7 @@ export function useQualityTable() {
                     <Input
                         id="Quantity"
                         {...register("Quantity")}
-                        type="text"
+                        type="number" step="0.01"
                     />
                     {errors?.Quantity && (
                         <p className="text-red-600">{errors.Quantity.message}</p>

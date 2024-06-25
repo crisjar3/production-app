@@ -117,7 +117,7 @@ export function ContainerInventoryCalculator({
               <Input
                 id="demandRate"
                 {...register("demandRate")}
-                type="text"
+                type="number" step="0.01"
                 required
               />
               {errors?.demandRate && (

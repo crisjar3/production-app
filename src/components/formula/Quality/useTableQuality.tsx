@@ -45,7 +45,7 @@
 //         <Input
 //             className="min-w-[65px] max-w-1 w-max p-1 border-t-1 border rounded m-2"
 //             {...register("DefectiveFractions")}
-//             type="text"
+//             type="number" step="0.01"
 //             id={'DefectiveFractions'}
 //         />
 //

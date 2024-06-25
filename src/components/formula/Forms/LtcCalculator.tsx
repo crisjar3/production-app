@@ -177,7 +177,7 @@ export function LtcCalculator({
               <Input
                 id="orderingCost"
                 {...register("orderingCost")}
-                type="text"
+                type="number" step="0.01"
                 required
                 disabled={state.showTableResults}
               />
@@ -190,7 +190,7 @@ export function LtcCalculator({
               <Input
                 id="holdingCost"
                 {...register("holdingCost")}
-                type="text"
+                type="number" step="0.01"
                 disabled={state.showTableResults}
                 required
               />
