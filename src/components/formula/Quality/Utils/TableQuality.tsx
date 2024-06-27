@@ -1,4 +1,5 @@
 import {Children, ReactElement, ReactNode} from "react";
+import {cn} from "@/lib/utils"
 
 type DataTableProps = {
     title: ReactNode;
@@ -9,6 +10,7 @@ type DataTableProps = {
 
 type DataRowProps = {
     children: ReactElement[];
+    className: string;
 };
 
 const DataTable: React.FC<DataTableProps> = ({title, subtitle, headers, children}) => {
@@ -39,8 +41,9 @@ const DataTable: React.FC<DataTableProps> = ({title, subtitle, headers, children
                     if (isValidDataRow(child)) {
                         return (
                             <tr
+
                                 key={index}
-                                className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700`}
+                                className={cn(`bg-white border-b dark:bg-gray-800 dark:border-gray-700`, child.props.className)}
                             >
                                 {child.props.children}
                             </tr>
@@ -56,7 +59,7 @@ const DataTable: React.FC<DataTableProps> = ({title, subtitle, headers, children
     );
 };
 
-const DataRow: React.FC<DataRowProps> = ({children}) => {
+const DataRow: React.FC<DataRowProps> = ({className: string = "", children}) => {
     return <>{children}</>;
 };
 
