@@ -16,7 +16,6 @@ import {
     calculateLuC as calculateLUC,
     generateHeaders,
     generateNumberObject,
-    headerResultsLTC,
     headerResultsLUC,
     LtcFormData,
     LtcValidator,
@@ -91,16 +90,16 @@ export function LtcCalculator({
     };
 
     const showResultTable = (data: LtcFormData) => {
-        // if (!areAllRowsGreaterThanZero()) {
-        //     toast({
-        //         title: "Error",
-        //         description: "Por favor, rellena todas las columnas.",
-        //         variant: "destructive",
-        //     });
-        //     return;
-        // }
+        if (!areAllRowsGreaterThanZero()) {
+            toast({
+                title: "Error",
+                description: "Por favor, rellena todas las columnas.",
+                variant: "destructive",
+            });
+            return;
+        }
 
-        const test = [15, 16, 2, 24, 16, 17, 21, 3, 6, 2]
+        // const test = [15, 16, 2, 24, 16, 17, 21, 3, 6, 2]
 
         // setState((prevState) => ({
         //   ...prevState,
@@ -120,13 +119,13 @@ export function LtcCalculator({
             results: {
                 resultLuc: calculateLUC(
                     data,
-                    // Object.values(rows[0]).map((row) => row)
-                    test
+                    Object.values(rows[0]).map((row) => row)
+                    // test
                 ),
                 resultLtc: calculateLTC(
                     data,
-                    // Object.values(rows[0]).map((row) => row)
-                    test
+                    Object.values(rows[0]).map((row) => row)
+                    // test
                 ),
             },
         }));
@@ -233,15 +232,6 @@ export function LtcCalculator({
                                 isEditable={!state.showTableResults}
                                 updateRow={updateRow}
                                 rows={rows}
-                            />
-                        )}
-
-                        {state.showTableResults && (
-                            <DataTable
-                                title="Resultado LTC"
-                                subtitle="Resultado"
-                                headers={headerResultsLTC}
-                                rows={state.results.resultLtc}
                             />
                         )}
 
