@@ -38,9 +38,9 @@ export const InventoryFormula = () => {
   const formula1 = String.raw`\frac{D(T)}{2} + \text{SS}`;
   const TitleFormula2 = String.raw`\text{Rotación de inventario} =`;
   const formula2 = String.raw` \frac{D}{\text{Inventario promedio}}`;
-  const TitleFormula3 = String.raw`\text{Valor promedio del inventario} =`;
-
-  const formula3 = String.raw`\frac{Q}{2} + \text{SS}`;
+  // const TitleFormula3 = String.raw`\text{Valor promedio del inventario} =`;
+  //
+  // const formula3 = String.raw`\frac{Q}{2} + \text{SS}`;
   return (
     <div>
       <h3 className="text-xl font-semibold mb-2">Formulas</h3>
@@ -53,10 +53,10 @@ export const InventoryFormula = () => {
           <BlockMath math={TitleFormula2} />
           <BlockMath math={formula2} />
         </div>
-        <div className="">
-          <BlockMath math={TitleFormula3} />
-          <BlockMath math={formula3} />
-        </div>
+        {/*<div className="">*/}
+        {/*  <BlockMath math={TitleFormula3} />*/}
+        {/*  <BlockMath math={formula3} />*/}
+        {/*</div>*/}
       </div>
     </div>
   );

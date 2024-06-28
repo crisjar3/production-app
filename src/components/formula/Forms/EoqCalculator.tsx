@@ -107,7 +107,12 @@ export function EOQCalculator({
                         </div>
                         <div>
                             <Label htmlFor="setupCost">Coste de Instalacion</Label>
-                            <Input id="setupCost" {...register("setupCost")} type="number"/>
+                            <Input
+                                id="setupCost"
+                                {...register("setupCost")}
+                                type="number"
+                                step="0.01"
+                            />
                             {errors?.setupCost && (
                                 <p className="text-red-600">{errors.setupCost.message}</p>
                             )}

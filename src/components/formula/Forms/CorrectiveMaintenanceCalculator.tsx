@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useForm} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import * as z from "zod";
 import "katex/dist/katex.min.css";
 
@@ -18,10 +18,9 @@ const CorrectiveMaintenanceValidator = z
             (a) =>
                 a === undefined || a === null || a.toString().trim() === ""
                     ? 0
-                    : parseFloat(z.string().parse(a)),
+                    : Math.floor(parseFloat(z.string().parse(a))),
             z
                 .number()
-                .nonnegative("Debe ser un numero no negativo")
                 .optional()
                 .default(0)
         ),
@@ -58,7 +57,7 @@ const CorrectiveMaintenanceValidator = z
                 (a) =>
                     a === undefined || a === null || a.toString().trim() === ""
                         ? 0
-                        : parseFloat(z.string().parse(a)),
+                        : Math.floor(parseFloat(z.string().parse(a))),
                 z
                     .number()
                     .nonnegative("Debe ser un numero no negativo")
@@ -112,14 +111,28 @@ type CorrectiveMaintenanceFormData = z.infer<
     typeof CorrectiveMaintenanceValidator
 >;
 
+type FormField =
+    | "numberOfFailures"
+    | "durationOfTask"
+    | "costPerHour"
+    | "sparePartsCost"
+    | "operationalTaskCost"
+    | "logisticDelay"
+    | "costPerHourOfDowntime"
+    | "oneTimeFailureCost"
+    | "totalHours"
+    | "MTBF"
+
 export function CorrectiveMaintenanceCalculator({
                                                     className,
                                                     ...props
                                                 }: React.HTMLAttributes<HTMLFormElement>) {
     const {
         handleSubmit,
-        register,
+        register, getValues,
+        setValue,
         formState: {errors},
+        control
     } = useForm<CorrectiveMaintenanceFormData>({
         resolver: zodResolver(CorrectiveMaintenanceValidator),
     });
@@ -128,6 +141,9 @@ export function CorrectiveMaintenanceCalculator({
     const [stateCalculator, setStateCalculator] = useState({
         showResult: false,
         result: "",
+        numberOfFailures: 0,
+        MTBF: 0,
+        totalHours: 0
     })
 
     const calculateCMC = (data: CorrectiveMaintenanceFormData) => {
@@ -164,6 +180,23 @@ export function CorrectiveMaintenanceCalculator({
         return CMC;
     };
 
+    const hanldeOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // alert(e.target.id)
+
+        let value = Number(e.target.value);
+        const field = e.target.id as FormField
+
+        if (field === "totalHours" || field === "numberOfFailures") {
+            value = Math.floor(value)
+        }
+
+        setValue(field, value)
+        setStateCalculator((prev) => ({
+            ...prev,
+            [e.target.id]: e.target.value,
+        }))
+    }
+
     return (
         <form
             className={cn(className)}
@@ -178,10 +211,31 @@ export function CorrectiveMaintenanceCalculator({
                     <div className="grid gap-4">
                         <div>
                             <Label htmlFor="numberOfFailures">Numero de fallas</Label>
-                            <Input
-                                id="numberOfFailures"
-                                {...register("numberOfFailures")}
-                                type="number"
+                            {/*<Input*/}
+                            {/*    id="numberOfFailures"*/}
+                            {/*    {...register("numberOfFailures", {min: 0})}*/}
+                            {/*    type="number"*/}
+                            {/*    onChange={hanldeOnChange}*/}
+                            {/*    defaultValue={0}*/}
+                            {/*    disabled={stateCalculator.MTBF > 0 || stateCalculator.totalHours > 0}*/}
+                            {/*    min={0}*/}
+                            {/*    step={1}*/}
+                            {/*/>*/}
+
+                            <Controller
+                                name="numberOfFailures"
+                                control={control}
+                                render={({field}) =>
+                                    <Input
+                                        id="numberOfFailures"
+                                        {...register("numberOfFailures", {min: 0})}
+                                        type="number"
+                                        onChange={hanldeOnChange}
+                                        defaultValue={0}
+                                        disabled={stateCalculator.MTBF > 0 || stateCalculator.totalHours > 0}
+                                        min={0}
+                                        step={1}
+                                    />}
                             />
                             {errors?.numberOfFailures && (
                                 <p className="text-red-600">
@@ -243,6 +297,7 @@ export function CorrectiveMaintenanceCalculator({
                                 id="logisticDelay"
                                 {...register("logisticDelay")}
                                 type="number" step="0.01"
+                                defaultValue={0}
                             />
                             {errors?.logisticDelay && (
                                 <p className="text-red-600">{errors.logisticDelay.message}</p>
@@ -256,6 +311,7 @@ export function CorrectiveMaintenanceCalculator({
                                 id="costPerHourOfDowntime"
                                 {...register("costPerHourOfDowntime")}
                                 type="number" step="0.01"
+                                defaultValue={0}
                             />
                             {errors?.costPerHourOfDowntime && (
                                 <p className="text-red-600">
@@ -271,6 +327,7 @@ export function CorrectiveMaintenanceCalculator({
                                 id="oneTimeFailureCost"
                                 {...register("oneTimeFailureCost")}
                                 type="number"
+                                step="0.01"
                             />
                             {errors?.oneTimeFailureCost && (
                                 <p className="text-red-600">
@@ -281,7 +338,15 @@ export function CorrectiveMaintenanceCalculator({
 
                         <div>
                             <Label htmlFor="MTBF">MBTF</Label>
-                            <Input id="MTBF" {...register("MTBF")} type="number" step="0.01"/>
+                            <Input
+                                id="MTBF"
+                                {...register("MTBF")}
+                                type="number"
+                                step="0.01"
+                                defaultValue={0}
+                                onChange={hanldeOnChange}
+                                disabled={stateCalculator.numberOfFailures > 0}
+                            />
                             {errors?.MTBF && (
                                 <p className="text-red-600">{errors.MTBF.message}</p>
                             )}
@@ -293,6 +358,9 @@ export function CorrectiveMaintenanceCalculator({
                                 id="totalHours"
                                 {...register("totalHours")}
                                 type="number"
+                                onChange={hanldeOnChange}
+                                defaultValue={0}
+                                disabled={stateCalculator.numberOfFailures > 0}
                             />
                             {errors?.totalHours && (
                                 <p className="text-red-600">{errors.totalHours.message}</p>
