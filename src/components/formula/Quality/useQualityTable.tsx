@@ -76,7 +76,7 @@ export function useQualityTable() {
             headers={["Muestra", "Defectos", "Fracciones Defectuosas"]}
         >
             {fields.map((field, index) => (
-                <DataRow key={field.id}>
+                <DataRow className="" key={field.id} >
                     <td>
                         <Controller
                             control={control}
