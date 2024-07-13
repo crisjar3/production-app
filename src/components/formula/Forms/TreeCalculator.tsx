@@ -177,7 +177,7 @@ export function TreeCalculator() {
             Agregar componente
           </Button>
           <Button type="submit" className="br-1">
-            Guardar Producto
+            Ver Diagrama Arboral
           </Button>
 
           <Button type="button" onClick={onReset} className="br-1">
