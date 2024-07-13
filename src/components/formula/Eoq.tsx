@@ -90,3 +90,17 @@ export const KanbanFormula = () => {
         </div>
     );
 };
+
+export const TreeFormula = () => {
+  const formulaExplanation = `Vamos a calcular la demanda como: 
+  SubComponenteN * ComponenteN * Producto + SubComponenteN+1 * ComponenteN * Producto, 
+  y así sucesivamente.`;
+
+  return (
+      <div>
+          <h2>Fórmulas</h2>
+          <h3>Explicación de la Demanda:</h3>
+          <p>{formulaExplanation}</p>
+      </div>
+  );
+};
