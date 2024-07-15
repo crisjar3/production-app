@@ -42,9 +42,9 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           <Link href='/'>Productos</Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem asChild>
+        {/* <DropdownMenuItem asChild>
           <Link href='/r/create'>Crear Modulo</Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
 
         <DropdownMenuItem asChild>
           <Link href='/settings'>Configuraciones</Link>

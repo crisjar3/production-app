@@ -92,6 +92,7 @@ export function TreeCalculator() {
   });
   const [state, setState] = useState<Product>({
     components: [],
+    quantity: 0,
     name: "",
   });
 
@@ -115,6 +116,7 @@ export function TreeCalculator() {
       components: [],
     });
     setState({
+      quantity: 0,
       components: [],
       name: "",
     });
@@ -129,50 +131,58 @@ export function TreeCalculator() {
           {errors.name && <p className="text-red-600">{errors.name.message}</p>}
         </div>
 
+        <div className="mb-4">
+          <label className="block mb-2">Cantidad a calcular</label>
+          <input type="number" className="border p-2 w-full" {...register("quantity",{
+            valueAsNumber: true,
+          })} />
+          {errors.quantity && <p className="text-red-600">{errors.quantity.message}</p>}
+        </div>
+
         {errors.components && <p className="text-red-600">{errors.components.message}</p>}
         {componentFields.map((component, index) => (
-          <div key={component.id} className="mb-4 border p-4">
-            <div className="mb-4">
-              <label className="block mb-2">Nombre de Componente</label>
-              <input
-                className="border p-2 w-full"
-                {...register(`components.${index}.name`)}
+            <div key={component.id} className="mb-4 border p-4">
+              <div className="mb-4">
+                <label className="block mb-2">Nombre de Componente</label>
+                <input
+                    className="border p-2 w-full"
+                    {...register(`components.${index}.name`)}
+                />
+                {errors.components?.[index]?.name && (
+                    <p className="text-red-600">
+                      {errors.components[index]?.name?.message}
+                    </p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2">Cantidad</label>
+                <input
+                    className="border p-2 w-full"
+                    type="number"
+                    {...register(`components.${index}.quantity`, {
+                      valueAsNumber: true,
+                    })}
+                />
+                {errors.components?.[index]?.quantity && (
+                    <p className="text-red-600">
+                      {errors.components[index]?.quantity?.message}
+                    </p>
+                )}
+              </div>
+              <SubComponents
+                  control={control}
+                  register={register}
+                  index={index}
+                  errors={errors}
               />
-              {errors.components?.[index]?.name && (
-                <p className="text-red-600">
-                  {errors.components[index]?.name?.message}
-                </p>
-              )}
             </div>
-            <div className="mb-4">
-              <label className="block mb-2">Cantidad</label>
-              <input
-                className="border p-2 w-full"
-                type="number"
-                {...register(`components.${index}.quantity`, {
-                  valueAsNumber: true,
-                })}
-              />
-              {errors.components?.[index]?.quantity && (
-                <p className="text-red-600">
-                  {errors.components[index]?.quantity?.message}
-                </p>
-              )}
-            </div>
-            <SubComponents
-              control={control}
-              register={register}
-              index={index}
-              errors={errors}
-            />
-          </div>
         ))}
         <div className="flex gap-4 border-r-4">
           <Button
-            type="button"
-            onClick={() =>
-              appendComponent({ name: "", quantity: 0, subcomponents: [] })
-            }
+              type="button"
+              onClick={() =>
+                  appendComponent({name: "", quantity: 0, subcomponents: []})
+              }
           >
             Agregar componente
           </Button>
@@ -187,13 +197,13 @@ export function TreeCalculator() {
       </form>
 
       {!loading && show && (
-        <div className="flex justify-center items-center flex-row">
-          <Image
-            style={{
-              maxWidth: "100%",
-              height: "auto",
-              width: "auto",
-              alignItems: "center",
+          <div className="flex justify-center items-center flex-row">
+            <Image
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  width: "auto",
+                  alignItems: "center",
             }}
             width={100} // Ajusta el ancho de la imagen según sea necesario
             height={80} // Ajusta la altura de la imagen según sea necesario

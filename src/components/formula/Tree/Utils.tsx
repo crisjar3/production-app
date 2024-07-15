@@ -2,17 +2,18 @@ import * as z from "zod";
 
 export const SubComponentSchema = z.object({
   name: z.string().nonempty("Nombre de subcomponente requerido"),
-  quantity: z.number().positive("Quantity must be a positive number"),
+  quantity: z.number().int().positive("Quantity must be a positive number"),
 });
 
 export const ComponentSchema = z.object({
   name: z.string().nonempty("Nombre de Componente es requerido"),
-  quantity: z.number().positive("Cantidad debe ser un numero Positivo"),
+  quantity: z.number().int().positive("Cantidad debe ser un numero Positivo"),
   subcomponents: z.array(SubComponentSchema).optional(),
 });
 
 export const ProductSchema = z.object({
   name: z.string().nonempty("Nombre de producto es requerido"),
+  quantity: z.number().int().positive("Cantidad debe ser un numero Positivo"),
   components: z.array(ComponentSchema).min(1, "Debe agregar al menos un Componente "),
 });
 

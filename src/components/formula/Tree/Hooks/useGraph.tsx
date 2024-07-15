@@ -66,17 +66,15 @@ export default function calculateTotalComponents(product: Product): number {
     }
 
     component.subcomponents?.forEach((subcomponent) => {
-      total += subcomponent.quantity * component.quantity;
+      total += subcomponent.quantity * component.quantity*multiplier;
     });
-
-    // alert(`el total es ${total} de el componente ${component.name}`)
     return total;
   }
 
   let total = 0;
 
   product.components.forEach((component) => {
-    total += calculateComponentTotal(component, 1);
+    total += calculateComponentTotal(component, product.quantity);
   });
 
   return total;
